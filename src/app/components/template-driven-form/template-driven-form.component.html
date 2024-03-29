@@ -1,0 +1,248 @@
+<form class="mt-10 md:mt-0" #userForm="ngForm">
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-8 items-center justify-center"
+  >
+  <!-- First Name -->
+    <div class="mb-1">
+      <label
+        for="validationServer01"
+        class="block text-sm font-medium text-white"
+        >First name</label
+      >
+      <!-- #first name variable stores the data collected by ngModel from user -->
+      <input
+        type="text"
+        class="form-input mt-1 block w-full rounded-md border-gray-300 p-2 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        id="validationServer01"
+        placeholder="Enter your first name"
+        name="firstName"
+        minlength="3"
+        #firstName="ngModel"   
+        [(ngModel)]="userObj.firstName"
+        required
+      />
+      <!-- Initially there is nothing below input field but whenever a person clicks field or moves forward without adding something the the required message appears otherwise if minlength is less than 3 then second message appears otherwise if everything is valid the flow goes smooth -->
+      <div class="valid-feedback text-red-300 text-sm" *ngIf="firstName.invalid && (firstName.touched || firstName.dirty) || isFormSubmitted">
+        <span *ngIf="firstName.errors?.['required']">Mandatory Field</span>
+        <span *ngIf="firstName.errors?.['minlength']">Min 3 Characters Needed</span>
+      </div>
+      
+    </div>
+
+    <!-- Last Name -->
+    <div class="mb-1">
+      <label
+        for="validationServer02"
+        class="block text-sm font-medium text-white"
+        >Last name</label
+      >
+      <input
+        type="text"
+        class="form-input mt-1 block w-full rounded-md border-gray-300 p-2 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        id="validationServer02"
+        name="lastName"
+        #lastName="ngModel"
+        placeholder="Enter your last name"
+        [(ngModel)]="userObj.lastName"
+      />
+    </div>
+
+    <!-- Username -->
+    <div class="mb-1">
+      <label
+        for="validationServerUsername"
+        class="block text-sm font-medium text-white"
+        >Username</label
+      >
+      <div class="relative">
+        <input
+          type="text"
+          class="form-input mt-1 block w-full rounded-md border-gray-300 p-2 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-sm focus:border-red-300 focus:ring focus:ring-red-200  focus:ring-opacity-50"
+          id="validationServerUsername"
+          name="userName"
+          pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+          placeholder="Username@gmail.com"
+          #email="ngModel"
+          [(ngModel)]="userObj.userName"
+          required
+        />
+        <div class="invalid-feedback text-red-300 text-sm" *ngIf="email.invalid && (email.touched || email.dirty) || isFormSubmitted">
+          <span *ngIf="email.errors?.['required']">Email ID Required</span>
+         <span *ngIf="email.errors?.['pattern']">Improper Email ID</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gender -->
+    <div class="mb-4 text-white flex flex-row gap-5">
+      <label class="block text-sm font-medium translate-y-1 mr-8">Gender</label>
+      <div class="mt-1">
+        <input
+          type="radio"
+          class="form-radio"
+          name="gender"
+          #gender="ngModel"
+          [(ngModel)]="userObj.gender"
+          id="male"
+          value="male"
+          checked
+        />
+        <label for="male" class="ml-[2px] text-sm">Male</label>
+      </div>
+      <div class="mt-1">
+        <input
+          type="radio"
+          class="form-radio"
+          name="gender"
+          id="female"
+          value="female"
+        />
+        <label for="female" class="ml-[2px] text-sm">Female</label>
+      </div>
+      <div class="mt-1">
+        <input
+          type="radio"
+          class="form-radio"
+          name="gender"
+          id="other"
+          value="other"
+        />
+        <label for="other" class="ml-[2px] text-sm">Other</label>
+      </div>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="mb-4">
+      <label for="phone" class="block text-sm font-medium text-white"
+        >Phone Number</label
+      >
+      <input
+        type="number"
+        pattern="[+92][0-9]{11}"
+        maxlength="14"
+        id="phone"
+        name="phone"
+        class="form-input mt-1 block w-full rounded-md border-gray-300 p-2 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        placeholder="+92**********"
+        autocomplete="tel"
+        #phone="ngModel"
+        [(ngModel)]="userObj.phone"
+        required
+      />
+      <div class="invalid-feedback text-red-300 text-sm" *ngIf="phone.invalid && (phone.touched || phone.dirty) || isFormSubmitted">
+        <span *ngIf="phone.errors?.['pattern']">Provide Valid Number</span>
+        <span *ngIf="phone.errors?.['required']">Phone Number is Compulsory</span> 
+      </div>
+    </div>
+
+<!-- CNIC -->
+    <div class="mb-4">
+      <label for="cnic" class="block text-sm font-medium text-white"
+        >CNIC</label
+      >
+      <input
+        type="text"
+        id="cnic"
+        name="cnic"
+        pattern="[0-9]{5}-[0-9]{7}-[0-9]{1}"
+        placeholder="XXXXX-XXXXXXX-X"
+        class="form-input mt-1 block w-full rounded-md border-gray-300 p-2 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        maxlength="15"
+        #cnic="ngModel"
+        autocomplete="cnic"
+        [(ngModel)]="userObj.cnic"
+      />
+      <div class="invalid-feedback text-red-300 text-sm" *ngIf="cnic.invalid && (cnic.touched || cnic.dirty) || isFormSubmitted">
+        <span *ngIf="cnic.errors?.['pattern']">Provide Valid Number</span>
+      </div>
+    </div>
+      <!-- City -->
+    <div class="mb-4">
+      <label for="city" class="block text-sm font-medium text-white"
+        >City</label
+      >
+      <input
+        type="text"
+        class="form-input mt-1 block w-full rounded-md border-gray-300 p-2 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50"
+        id="city"
+        name="city"
+        placeholder="City"
+        #city="ngModel"
+        [(ngModel)]="userObj.city"
+        required
+      />
+      <div class="invalid-feedback text-red-300 text-sm" *ngIf="city.invalid && (city.touched || city.dirty) || isFormSubmitted">
+        <span *ngIf="city.errors?.['required']">Please Provide Valid City</span> 
+      </div>
+    </div>
+     
+    <!-- Country -->
+    <div class="mb-4">
+      <label
+        for="countries"
+        class="block mt-1 p-1 text-sm font-medium text-white"
+        >Select an option</label
+      >
+      <select
+        id="countries"
+        name="country"
+        #country="ngModel"
+        required
+        [(ngModel)]="userObj.country"
+        class="border text-black border-gray-300 text-sm rounded-lg p-3 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md focus:ring-blue-500 focus:border-blue-500 block w-full"
+      >
+        <!-- Updated this option to act as a disabled placeholder -->
+        <option value="" disabled selected>Choose a Country</option>
+        <option value="US">United States</option>
+        <option value="CA">Canada</option>
+        <option value="FR">France</option>
+        <option value="DE">Germany</option>
+      </select>
+      <div class="invalid-feedback text-red-300 text-sm" *ngIf="country.invalid && (country.dirty || country.touched) || isFormSubmitted">
+        <span *ngIf="country.errors?.['required']">Please Choose Country</span>
+      </div>
+    </div>
+
+    <!-- file -->
+    <div class="mb-4">
+      <label for="file" class="block text-sm font-medium text-white"
+        >Upload Your Photo</label
+      >
+      <input
+        type="file"
+        name="file"
+        class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50"
+        id="file"
+        #file="ngModel"
+        [(ngModel)]="userObj.file"
+        required
+      />
+      <div class="invalid-feedback text-red-300 text-sm" *ngIf="file.invalid && (file.touched || file.dirty) || isFormSubmitted">
+        <span *ngIf="file.errors?.['required']">Please Choose a file</span> 
+      </div>
+    </div>
+  </div>
+
+  <!-- Agreement -->
+  <div class="mb-4 mt-3">
+    <div class="flex items-center">
+      <input
+        type="checkbox"
+        name="isAgree"
+        class="form-checkbox h-5 w-5 text-red-600 border-gray-300 rounded focus:ring-red-500"
+        id="invalidCheck3"
+        #isAgree="ngModel"
+        [(ngModel)]="userObj.isAgree"
+        required
+      />
+      <label for="invalidCheck3" class="ml-2 block text-[16px] text-white"
+        >Agree to terms and conditions</label
+      >
+    </div>
+    <div class="invalid-feedback text-red-300 text-sm" *ngIf="isAgree.invalid && (isAgree.touched || isAgree.dirty) || isFormSubmitted">
+      <span *ngIf="isAgree.errors?.['required']">You must Agree before submitting</span> 
+    </div>
+  </div>
+  <!-- Submit -->
+  <button mat-raised-button class=" mt-2 mb-6" color="" [disabled]="!userForm.form.valid" type="button" (click)="OnSubmit(userForm)">Submit</button>
+</form>
