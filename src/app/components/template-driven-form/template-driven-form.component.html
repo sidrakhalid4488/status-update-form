@@ -52,7 +52,7 @@
       <label
         for="validationServerUsername"
         class="block text-sm font-medium text-white"
-        >Username</label
+        >Email Id</label
       >
       <div class="relative">
         <input
@@ -193,10 +193,7 @@
       >
         <!-- Updated this option to act as a disabled placeholder -->
         <option value="" disabled selected>Choose a Country</option>
-        <option value="US">United States</option>
-        <option value="CA">Canada</option>
-        <option value="FR">France</option>
-        <option value="DE">Germany</option>
+        <option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</option>
       </select>
       <div class="invalid-feedback text-red-300 text-sm" *ngIf="country.invalid && (country.dirty || country.touched) || isFormSubmitted">
         <span *ngIf="country.errors?.['required']">Please Choose Country</span>
